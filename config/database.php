@@ -1,0 +1,10 @@
+<?php
+
+return [
+    
+    'connections' => [
+        'api' => [
+            
+        ],
+    ],
+];
