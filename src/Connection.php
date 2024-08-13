@@ -5,7 +5,7 @@ namespace e282486518\LaravelApiDatabase;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Database\Connection as ConnectionBase;
-use Illuminate\Database\Grammar as GrammerBase;
+use Illuminate\Database\ApiGrammar;
 use Illuminate\Support\Facades\Cache;
 use RuntimeException;
 
@@ -18,7 +18,7 @@ class Connection extends ConnectionBase
      */
     protected function getDefaultQueryGrammar()
     {
-        $grammar = app(Grammar::class);
+        $grammar = app(ApiGrammar::class);
         $grammar->setConfig($this->getConfig());
 
         return $this->withTablePrefix($grammar);
