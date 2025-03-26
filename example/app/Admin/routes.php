@@ -13,7 +13,7 @@ Route::group([
 ], function (Router $router) {
 
     // 数据中心员工管理
-    $router->get('/staff-api', 'AdminApiController@index');
-    $router->get('/staff-api/{id}/edit', 'AdminApiController@edit');
-    $router->put('/staff-api/{id}', 'AdminApiController@update');
+    $router->get('/admin-api', 'AdminApiController@index');
+    $router->get('/admin-api/{id}/edit', 'AdminApiController@edit');
+    $router->put('/admin-api/{id}', 'AdminApiController@update');
 });

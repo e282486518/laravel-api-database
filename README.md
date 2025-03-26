@@ -110,6 +110,6 @@
 新增文件: app/Core/Traits/HasPermissions.php
 新增文件: app/Admin/Controllers/AdminApiController.php
 
-
+登录后台, 在`系统->菜单`中修改管理员的`/admin/auth/users`为`/admin/admin-api`
 
 
