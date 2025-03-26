@@ -82,4 +82,47 @@ class Str
 
         return false;
     }
+
+    /**
+     * ---------------------------------------
+     * 用于CURL和GuzzleHttp的header格式相互转化
+     *
+     * @param $headers
+     * @param string $format 转化目标格式
+     * @return array
+     * @author hlf <phphome@qq.com> 2025/3/26
+     * ---------------------------------------
+     */
+    public static function convertHeaders($headers, $format = 'array') {
+        if (empty($headers)) {
+            return [];
+        }
+        // 取第数组第一个元素的值
+        $firstElement = reset($headers);
+        $result = [];
+        if (strpos($firstElement, ': ') !== false) {
+            // headers是字符串格式
+            if ($format == 'array') {
+                // 字符串格式 => 为数组格式
+                foreach ($headers as $header) {
+                    list($key, $value) = explode(': ', $header, 2);
+                    $result[$key] = $value;
+                }
+                return $result;
+            } else {
+                return $headers;
+            }
+        } else {
+            // headers是数组格式
+            if ($format == 'array') {
+                return $headers;
+            } else {
+                // 数组格式 => 字符串格式
+                foreach ($headers as $key => $value) {
+                    $result[] = $key. ': '. $value;
+                }
+                return $result;
+            }
+        }
+    }
 }

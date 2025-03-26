@@ -205,7 +205,14 @@ class Connection extends ConnectionBase
             // Add access token to headers.
             $headers[] = "Authorization: Bearer $accessToken";
         }
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        
+        // 将header关联数组转化成curl中header的数组字符串
+        $headerArr = [];
+        foreach ($headers as $key => $value) {
+            $headerArr[] = "$key: $value";
+        }
+        curl_setopt($ch, CURLOPT_HTTPHEADER, Str::convertHeaders($headers, 'string'));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 忽略证书验证
 
         // Set URL.
         curl_setopt($ch, CURLOPT_URL, $url);
