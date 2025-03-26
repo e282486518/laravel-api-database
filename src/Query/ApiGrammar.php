@@ -6,6 +6,7 @@ use DateTime;
 use DateTimeZone;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\Grammars\Grammar;
+use e282486518\LaravelApiDatabase\Str;
 use RuntimeException;
 
 class ApiGrammar extends Grammar
@@ -32,8 +33,15 @@ class ApiGrammar extends Grammar
         // Get params.
         $params = $this->config['default_params'] ?? [];
         foreach ($query->wheres as $where) {
+            // 默认条件
+            $where['type'] = $where['type']??'Basic';
+            $where['operator'] = $where['operator']??'=';
+            // 嵌套条件, 参数不一样, SQL的嵌套, 太复杂了, 暂时忽略
+            if ($where['type'] == 'Nested') {
+                break;
+            }
             // Get key and strip table name.
-            $key = $where['column'];
+            $key = $where['column'] ?? 'id';
             $dotIx = strrpos($key, '.');
             if ($dotIx !== false) {
                 $key = substr($key, $dotIx + 1);
@@ -77,6 +85,10 @@ class ApiGrammar extends Grammar
                 case 'between':
                     $params["min_$key"] = $this->filterKeyValue($key, $where['values'][0]);
                     $params["max_$key"] = $this->filterKeyValue($key, $where['values'][1]);
+                    break;
+
+                // SQL的嵌套, 太复杂了, 暂时忽略
+                case 'Nested':
                     break;
 
                 // Ignore the following where types.
