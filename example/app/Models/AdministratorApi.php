@@ -44,6 +44,7 @@ class AdministratorApi extends Model implements AuthenticatableContract, Authori
 
     protected function init()
     {
+        // 模型使用 database.api 配置
         $this->setConnection('api');
 
         $this->setTable('list');

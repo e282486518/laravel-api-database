@@ -3,6 +3,8 @@
 
 本扩展使用API作为数据源构建模型，在项目中犹如使用MySQL一样。
 
+其原理是将数据库连接改成API查询, 最终将SQL语句转化成类似`https://api.xxxx.cn/path/数据表名?查询条件1=值1&查询条件2=值2&order=排序` 从api中获取数据并构建`Model`.
+
 ### 登录时使用数仓API登录
 
 本扩展不包括在laravel登录中调用API，如需调用参考guard配置。
@@ -105,10 +107,10 @@
 ```
 
 
-新增文件: app/Providers/ApiUserProvider.php
-新增文件: app/Models/AdministratorApi.php
-新增文件: app/Core/Traits/HasPermissions.php
-新增文件: app/Admin/Controllers/AdminApiController.php
+- 新增文件: app/Providers/ApiUserProvider.php
+- 新增文件: app/Models/AdministratorApi.php
+- 新增文件: app/Core/Traits/HasPermissions.php
+- 新增文件: app/Admin/Controllers/AdminApiController.php
 
 登录后台, 在`系统->菜单`中修改管理员的`/admin/auth/users`为`/admin/admin-api`
 
